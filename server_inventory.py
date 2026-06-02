@@ -23,8 +23,8 @@ def add_server():
     }
     servers.append(server)
     print("Server added successfully!")
-
-
+    writter()
+    
 def show_servers():
     if not servers:
         print("No servers in inventory.")
@@ -78,6 +78,7 @@ def update_server():
         "services": [service.strip() for service in new_services]
     }
     print("Server updated successfully!")
+    writter()
 
 def delete_server():
     search_term = input("Enter hostname or IP of the server to delete: ")
@@ -88,6 +89,13 @@ def delete_server():
     server = found_servers[0]
     servers.remove(server)
     print("Server deleted successfully!")
+    writter()
+
+def writter():
+    with open("servers.txt", "w") as f:
+        for server in servers:
+            f.write(f"{server['hostname']},{server['ip']},{server['os']},{server['role']},{','.join(server['services'])}\n")
+        
 
 def menu():
     while True:
